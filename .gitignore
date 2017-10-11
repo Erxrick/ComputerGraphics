@@ -17,6 +17,9 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+Middleware/
+\Middleware
+/Middleware
 x64/
 x86/
 bld/
