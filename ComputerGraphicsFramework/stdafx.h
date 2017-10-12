@@ -24,7 +24,3 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "engine.h"
-#include "renderer.h"
-#include "timer.h"
-#include "system.h"
