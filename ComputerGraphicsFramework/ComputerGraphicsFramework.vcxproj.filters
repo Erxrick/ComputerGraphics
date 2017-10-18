@@ -54,6 +54,15 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene01.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene02.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -77,6 +86,15 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene01.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene02.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ComputerGraphicsFramework.rc">
@@ -88,6 +106,9 @@
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\basic.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\transform.vert">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>
