@@ -3,6 +3,10 @@
 #include "input.h"
 #include "renderer.h"
 
+float Input::s_scrollX = 0.0f;
+float Input::s_scrollY = 0.0f;
+
+
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -10,10 +14,17 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 }
+void Input::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	s_scrollX = (float)xoffset;
+	s_scrollY = (float)yoffset;
+
+}
 
 Input::Input(Engine* engine) : System(engine)
 {
 	//
+	glfwSetScrollCallback(m_engine->Get<Renderer>()->m_window, scroll_callback);
 }
 
 Input::~Input()
@@ -106,6 +117,15 @@ void Input::Update()
 			x = (float)xd;
 			y = (float)yd;
 		}
+		else if (info.type == eAnalogType::MOUSE_Z)
+		{
+			x = s_scrollX;
+			y = s_scrollY;
+
+			s_scrollX = 0.0f;
+			s_scrollY = 0.0f;
+		}
+
 				
 		switch (info.type)
 		{
@@ -123,6 +143,11 @@ void Input::Update()
 			info.valueRelative = y - info.valueAbsolute;
 			info.valueAbsolute = y;
 			break;
+		case eAnalogType::MOUSE_Z:
+			info.valueRelative = (info.valueAbsolute == FLT_MAX) ? 0.0f : y;
+			info.valueAbsolute = y;
+			break;
+
 		}
 
 		iter->second = info;

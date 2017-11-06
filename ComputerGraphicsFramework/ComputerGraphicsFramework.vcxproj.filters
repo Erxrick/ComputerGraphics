@@ -22,6 +22,9 @@
     <Filter Include="Resource Files\Resources\Textures">
       <UniqueIdentifier>{9a2ad026-1241-4308-9d46-9229fbed7b96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{152967c4-fea5-4dd5-b3e4-da34d01a7ded}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -58,9 +61,39 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scene01.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene03.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene02.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene04.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scene02.h">
+    <ClInclude Include="image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Middleware\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="meshLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -90,9 +123,36 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="scene01.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene03.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene02.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene04.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene02.cpp">
+    <ClCompile Include="image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="meshLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,6 +169,30 @@
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\transform.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\light.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\phong.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\phong.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\texture_phong.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\texture_phong.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\multi_phong.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\multi_phong.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\specular_phong.frag">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>

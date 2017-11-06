@@ -8,7 +8,11 @@
 #include "system.h"
 #include "glm\vec3.hpp"
 #include "scene01.h"
-#include"Scene02.h"
+#include"scene02.h"
+#include"scene03.h"
+#include "scene04.h"
+#define STB_IMAGE_IMPLEMENTATION
+
 
 
 
@@ -23,7 +27,7 @@ int main()
 		engine->Shutdown();
 		exit(EXIT_FAILURE);
 	}
-	std::shared_ptr<Scene> scene(new Scene02(engine.get()));
+	std::shared_ptr<Scene> scene(new Scene04(engine.get()));
 	if (!scene->Initialize())
 	{
 		scene->Shutdown();

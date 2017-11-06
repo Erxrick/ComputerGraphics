@@ -24,9 +24,14 @@ public:
 	glm::mat4 m_scale;
 	float m_cursorSize = 1;
 	Input::eButtonState m_state;
+
+	#pragma region Mouse Stuff
 	float m_mouseX;
 	float m_mouseY;
 	float m_x;
 	float m_y;
+
+	#pragma endregion
+
 	
 };

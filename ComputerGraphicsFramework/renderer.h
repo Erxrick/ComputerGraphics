@@ -11,6 +11,7 @@ public:
 	bool Initialize();
 	void Shutdown();
 	void Update();
+	static std::string GetTypeString(GLenum type);
 
 	GLuint CreateShaderProgram(const std::string& vertextShader, const std::string& fragmentShader);
 	GLuint CreateShader(const std::string& shader, GLenum shaderType);

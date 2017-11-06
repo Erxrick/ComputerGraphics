@@ -30,6 +30,7 @@ public:
 		INVALID,
 		MOUSE_X,
 		MOUSE_Y,
+		MOUSE_Z,
 		JOYSTICK_X,
 		JOYSTICK_Y,
 	};
@@ -64,6 +65,9 @@ public:
 	float GetAnalogAbsolute(const std::string name);
 	float GetAnalogRelative(const std::string name);
 
+	static float s_scrollX;
+	static float s_scrollY;
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 private:
 	std::map<std::string, ButtonInfo> m_buttons;
 	std::map<std::string, AnalogInfo> m_analogs;
