@@ -4,6 +4,7 @@
 #include "glm/matrix.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "shader.h"
+#include "material.h"
 
 
 class Scene04 :
@@ -67,13 +68,8 @@ private:
 	glm::vec3 m_diffuseMaterial;
 	glm::vec3 m_specularMaterial;
 
+	Material m_material;
 
-	GLsizei bpp;
-	GLsizei width;
-	GLsizei height = 0;
-
-	GLuint texID;
-	GLuint texID2;
 
 
 };

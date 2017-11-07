@@ -6,7 +6,7 @@ namespace MeshLoader {
 
 	bool loadMesh()
 	{
-		std::string content;
+	/*	std::string content;
 		std::ifstream fileStream(filename, std::ios::in);
 		int size;
 		int offSet;
@@ -73,6 +73,6 @@ namespace MeshLoader {
 
 		fileStream.close();
 		return data;
-		return false;
+		return false;*/
 	}
 }

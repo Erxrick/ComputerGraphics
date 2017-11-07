@@ -115,41 +115,10 @@ bool Scene04::Initialize()
 	glVertexAttribBinding(2, 2);
 
 
+	m_material.SetMaterial(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 100.0f);
+	m_material.LoadTexture2D("..\\Resources\\Textures\\crate.bmp", GL_TEXTURE0);
+	m_material.LoadTexture2D("..\\Resources\\Textures\\crate_specular.bmp", GL_TEXTURE1);
 
-	const unsigned char* image1 = Image::LoadBMP("Resources\\Textures\\crate.bmp", width, height, bpp);
-	const unsigned char* image2 = Image::LoadBMP("Resources\\Textures\\grass.bmp", width, height, bpp);
-
-	glActiveTexture(GL_TEXTURE0);
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image1);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	m_shader.SetUniform("texture1", texID);
-	//tex2
-	glActiveTexture(GL_TEXTURE1);
-	GLuint textureID2;
-	glGenTextures(1, &textureID2);
-
-	glBindTexture(GL_TEXTURE_2D, textureID2);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image2);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	m_shader.SetUniform("texture2", texID2);
-
-	//glUniform1i(texID, 0);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-
-
-	delete image1;
-	delete image2;
 
 	//
 	//m_cube.mxModelViewUniform = glGetUniformLocation(m_cube.shaderProgram, "mxModelView");
@@ -195,10 +164,6 @@ void Scene04::Render()
 void Scene04::Update()
 {
 
-	m_ambientMaterial = glm::vec3(0.2f, 0.2f, 0.2f);
-	m_shader.SetUniform("ambientMaterial", m_ambientMaterial);
-//	glUniform3fv(m_cube.ambientMaterialUniform, 1, &m_ambientMaterial[0]);
-
 	m_rotation = m_rotation + m_engine->Get<Timer>()->FrameTime();
 	m_translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 	m_rotate = glm::rotate(glm::mat4(1.0f), m_rotation, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -231,13 +196,21 @@ void Scene04::Update()
 	m_shader.SetUniform("lightColor", m_lightColor);
 //	glUniform3fv(m_light.colorUniform, 1, &m_lightColor[0]);
 
-	m_diffuseMaterial = glm::vec3(0.3f, 0.0f, 0.0f);
-	m_shader.SetUniform("diffuseMaterial", m_diffuseMaterial);
+//	m_ambientMaterial = glm::vec3(0.2f, 0.2f, 0.2f);
+//	m_shader.SetUniform("ambientMaterial", m_ambientMaterial);
+//	glUniform3fv(m_cube.ambientMaterialUniform, 1, &m_ambientMaterial[0]);
+
+//	m_diffuseMaterial = glm::vec3(0.3f, 0.0f, 0.0f);
+//	m_shader.SetUniform("diffuseMaterial", m_diffuseMaterial);
 //	glUniform3fv(m_cube.diffuseMaterialUniform, 1, &m_diffuseMaterial[0]);
 
-	m_specularMaterial = glm::vec3(0.0f, 1.0f, 0.0f);
-	m_shader.SetUniform("specularMaterial", m_specularMaterial);
+//	m_specularMaterial = glm::vec3(0.0f, 1.0f, 0.0f);
+//	m_shader.SetUniform("specularMaterial", m_specularMaterial);
 //	glUniform3fv(m_cube.specularMaterialUniform, 1, &m_specularMaterial[0]);
+	
+	m_shader.SetUniform("material.ambient", m_material.m_ambient);
+	m_shader.SetUniform("material.diffuse", m_material.m_diffuse);
+	m_shader.SetUniform("material.specular", m_material.m_specular);
 
 
 }
