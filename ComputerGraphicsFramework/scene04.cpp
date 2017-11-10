@@ -2,6 +2,8 @@
 #include "scene04.h"
 #include "timer.h"
 #include "image.h"
+#include "light.h"
+#include "input.h"
 
 #define PHONG
 #define SPECULAR
@@ -71,6 +73,10 @@ Scene04::~Scene04()
 
 bool Scene04::Initialize()
 {
+
+	m_engine->Get<Input>()->AddButton("quit", Input::eButtonType::KEYBOARD, GLFW_KEY_ESCAPE);
+
+
 #ifdef SPECULAR
 	m_shader.CompileShader("Resources\\Shaders\\texture_phong.vert", GL_VERTEX_SHADER);
 	m_shader.CompileShader("Resources\\Shaders\\multi_phong.frag", GL_FRAGMENT_SHADER);
@@ -115,36 +121,28 @@ bool Scene04::Initialize()
 	glVertexAttribBinding(2, 2);
 
 
-	m_material.SetMaterial(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 100.0f);
-	m_material.LoadTexture2D("..\\Resources\\Textures\\crate.bmp", GL_TEXTURE0);
-	m_material.LoadTexture2D("..\\Resources\\Textures\\crate_specular.bmp", GL_TEXTURE1);
+	m_material.SetMaterial(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(.5f, .5f, .5f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0f);
+	m_material.LoadTexture2D("Resources\\Textures\\crate.bmp", GL_TEXTURE0);
+///	m_shader.SetUniform("texture1", m_material.m_textures.at(0).texture);
+//	m_material.LoadTexture2D("Resources\\Textures\\rick.jpeg", GL_TEXTURE1);
+//	m_shader.SetUniform("texture2", m_material.m_textures.at(1).texture);
 
 
-	//
-	//m_cube.mxModelViewUniform = glGetUniformLocation(m_cube.shaderProgram, "mxModelView");
-	//m_cube.mxMVPUniform = glGetUniformLocation(m_cube.shaderProgram, "mxMVP");
-	//m_cube.mxNormalUniform = glGetUniformLocation(m_cube.shaderProgram, "mxNormal");
-
-	//m_cube.ambientMaterialUniform = glGetUniformLocation(m_cube.shaderProgram, "ambientMaterial");
-	//m_cube.diffuseMaterialUniform = glGetUniformLocation(m_cube.shaderProgram, "diffuseMaterial");
-	//m_cube.specularMaterialUniform = glGetUniformLocation(m_cube.shaderProgram, "specularMaterial");
-
-	//m_light.positionUniform = glGetUniformLocation(m_cube.shaderProgram, "lightPosition");
-	//m_light.colorUniform = glGetUniformLocation(m_cube.shaderProgram, "lightColor");
-
-	//std::cout << "cube ambient uniform: " << m_cube.ambientMaterialUniform << std::endl;
-	//std::cout << "cube diffuse uniform: " << m_cube.diffuseMaterialUniform << std::endl;
-	//std::cout << "cube specular uniform: " << m_cube.specularMaterialUniform << std::endl;
-
-	//std::cout << "cube modelView uniform: " << m_cube.mxModelViewUniform << std::endl;
-	//std::cout << "cube MVP uniform: " << m_cube.mxMVPUniform << std::endl;
-	//std::cout << "cube normal uniform: " << m_cube.mxNormalUniform << std::endl;
-
-	//std::cout << "light position uniform:" << m_light.positionUniform << std::endl;
-	//std::cout << "light color uniform:" << m_light.colorUniform << std::endl;
+//	m_material.SetTextures();
 
 
+	Camera* camera = new Camera("camera", this);
+	camera->Initialize(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f));
+	AddObject(camera);
 
+
+	Light* light = new Light("light", this);
+	light->m_ambient = glm::vec3(0.1f);
+	light->m_diffuse = glm::vec3(0.7f, 0.7f, 0.7f);
+	light->m_specular = glm::vec3(1.0f);
+	light->m_transform.position = glm::vec3(5.0f, 10.0f, 10.0f);
+
+	AddObject(light);
 
 	return true;
 }
@@ -163,56 +161,57 @@ void Scene04::Render()
 
 void Scene04::Update()
 {
+	if (m_engine->Get<Input>()->GetButton("quit") == Input::eButtonState::DOWN) glfwSetWindowShouldClose(m_engine->Get<Renderer>()->m_window, GLFW_TRUE);
+
+
+	Light* light = GetObject<Light>("light");
+
+	Camera* camera = GetObject<Camera>("camera");
+
+	auto objects = GetObjects<Object>();
+	for each (Object* object in m_objects)
+	{
+		object->Update();
+	}
+
+
+	//glm::vec3 lightPosition = camera->GetView() * glm::vec4(light->m_transform.position, 1.0f);
+
+	m_shader.SetUniform("light.position", light->m_transform.position);
+	m_shader.SetUniform("light.ambient", light->m_ambient);
+	m_shader.SetUniform("light.diffuse", light->m_diffuse);
+	m_shader.SetUniform("light.specular", light->m_specular);
+
 
 	m_rotation = m_rotation + m_engine->Get<Timer>()->FrameTime();
 	m_translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 	m_rotate = glm::rotate(glm::mat4(1.0f), m_rotation, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_mxModel = m_translate * m_rotate;
 
-	m_mxView = glm::lookAt(glm::vec3(0.0f, 1.0f, 1.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	m_mxProjection = glm::perspective(90.0f, ((float)m_engine->Get<Renderer>()->m_width / (float)m_engine->Get<Renderer>()->m_height), 0.001f, 100.0f);
+	//m_mxProjection = glm::perspective(90.0f, ((float)m_engine->Get<Renderer>()->m_width / (float)m_engine->Get<Renderer>()->m_height), 0.001f, 100.0f);
 
 
-	m_mxModelView = m_mxView * m_mxModel;
+	m_mxModelView = camera->GetView() * m_mxModel;
+	
+
 	m_shader.SetUniform("mxModelView", m_mxModelView);
-//	glUniformMatrix4fv(m_cube.mxModelViewUniform, 1, GL_FALSE, &m_mxModelView[0][0]);
 
-	m_MVP = m_mxProjection * m_mxView * m_mxModel;
+
+	m_MVP = camera->GetProjection() * camera->GetView() * m_mxModel;
 	m_shader.SetUniform("mxMVP", m_MVP);
-//	glUniformMatrix4fv(m_cube.mxMVPUniform, 1, GL_FALSE, &m_MVP[0][0]);
+
 
 
 	m_mxNormal = glm::mat3(m_mxModelView);
 	m_mxNormal = glm::inverse(m_mxNormal);
 	m_mxNormal = glm::transpose(m_mxNormal);
 	m_shader.SetUniform("mxNormal", m_mxNormal);
-//	glUniformMatrix3fv(m_cube.mxNormalUniform, 1, GL_FALSE, &m_mxNormal[0][0]);
 
-	m_lightPosition = m_mxView * glm::vec4(0.0f, 10.0f, 10.0f, 1.0f);
-	m_shader.SetUniform("lightPosition", m_lightPosition);
-//	glUniform4fv(m_light.positionUniform, 1, &m_lightPosition[0]);
-
-	m_lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	m_shader.SetUniform("lightColor", m_lightColor);
-//	glUniform3fv(m_light.colorUniform, 1, &m_lightColor[0]);
-
-//	m_ambientMaterial = glm::vec3(0.2f, 0.2f, 0.2f);
-//	m_shader.SetUniform("ambientMaterial", m_ambientMaterial);
-//	glUniform3fv(m_cube.ambientMaterialUniform, 1, &m_ambientMaterial[0]);
-
-//	m_diffuseMaterial = glm::vec3(0.3f, 0.0f, 0.0f);
-//	m_shader.SetUniform("diffuseMaterial", m_diffuseMaterial);
-//	glUniform3fv(m_cube.diffuseMaterialUniform, 1, &m_diffuseMaterial[0]);
-
-//	m_specularMaterial = glm::vec3(0.0f, 1.0f, 0.0f);
-//	m_shader.SetUniform("specularMaterial", m_specularMaterial);
-//	glUniform3fv(m_cube.specularMaterialUniform, 1, &m_specularMaterial[0]);
 	
 	m_shader.SetUniform("material.ambient", m_material.m_ambient);
 	m_shader.SetUniform("material.diffuse", m_material.m_diffuse);
 	m_shader.SetUniform("material.specular", m_material.m_specular);
-
-
+	m_shader.SetUniform("material.shininess", m_material.m_shininess);
 }
 
 void Scene04::Shutdown()

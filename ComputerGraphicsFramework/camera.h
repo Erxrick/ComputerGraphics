@@ -48,7 +48,7 @@ public:
 	void UpdateTransformEditor(const glm::vec3& translate, const glm::vec3& rotate);
 	void UpdateTransformOrbit(const glm::vec3& translate, const glm::vec3& rotate);
 
-	void SetPosition(const glm::vec3& position) { transform.position = position; }
+	void SetPosition(const glm::vec3& position) { m_transform.position = position; }
 	void SetTarget(const glm::vec3& target);
 
 	glm::mat4 GetView() { return m_mxView; }

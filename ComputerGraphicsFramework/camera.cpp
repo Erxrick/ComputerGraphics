@@ -20,12 +20,12 @@ Camera::~Camera()
 
 void Camera::Initialize(const glm::vec3& position, const glm::vec3& target, const Camera::Data& data)
 {
-	transform.position = position;
+	m_transform.position = position;
 	m_target = target;
 	m_data = data;
 
-	m_mxView = glm::lookAt(transform.position, m_target, glm::vec3(0.0f, 1.0f, 0.0f));
-	transform.rotation = glm::quat_cast(m_mxView);
+	m_mxView = glm::lookAt(m_transform.position, m_target, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_transform.rotation = glm::quat_cast(m_mxView);
 
 	float aspect = (float)Renderer::m_width / (float)Renderer::m_height;
 	m_mxProjection =  glm::perspective(m_data.fov, aspect, m_data.nearClip, m_data.farClip);
@@ -81,13 +81,13 @@ void Camera::UpdateTransformEditor(const glm::vec3& translate, const glm::vec3& 
 {
 	glm::quat qpitch = glm::angleAxis(rotate.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	glm::quat qyaw = glm::angleAxis(rotate.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	transform.rotation = qpitch * transform.rotation * qyaw;
-	transform.rotation = glm::normalize(transform.rotation);
+	m_transform.rotation = qpitch * m_transform.rotation * qyaw;
+	m_transform.rotation = glm::normalize(m_transform.rotation);
 
-	transform.position += (translate * transform.rotation);
+	m_transform.position += (translate * m_transform.rotation);
 
-	glm::mat4 mxTranslation = glm::translate(glm::mat4(1.0), -transform.position);
-	glm::mat4 mxRotation = glm::mat4_cast(transform.rotation);
+	glm::mat4 mxTranslation = glm::translate(glm::mat4(1.0), -m_transform.position);
+	glm::mat4 mxRotation = glm::mat4_cast(m_transform.rotation);
 
 	m_mxView = mxRotation * mxTranslation;
 }
@@ -96,19 +96,19 @@ void Camera::UpdateTransformOrbit(const glm::vec3& translate, const glm::vec3& r
 {
 	glm::quat qpitch = glm::angleAxis(-rotate.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	glm::quat qyaw = glm::angleAxis(-rotate.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	transform.rotation = transform.rotation * qyaw * qpitch;
-	transform.rotation = glm::normalize(transform.rotation);
+	m_transform.rotation = m_transform.rotation * qyaw * qpitch;
+	m_transform.rotation = glm::normalize(m_transform.rotation);
 
 	m_data.distance = m_data.distance + translate.z;
-	transform.position = (transform.rotation * glm::vec3(0.0f, 0.0f, m_data.distance)) + m_target;
-	glm::vec3 up = transform.rotation * glm::vec3(0.0f, 1.0f, 0.0f);
-	m_mxView = glm::lookAt(transform.position, m_target, up);
+	m_transform.position = (m_transform.rotation * glm::vec3(0.0f, 0.0f, m_data.distance)) + m_target;
+	glm::vec3 up = m_transform.rotation * glm::vec3(0.0f, 1.0f, 0.0f);
+	m_mxView = glm::lookAt(m_transform.position, m_target, up);
 }
 
 void Camera::SetTarget(const glm::vec3& target)
 {
 	m_target = target;
 
-	m_mxView = glm::lookAt(transform.position, m_target, glm::vec3(0.0f, 1.0f, 0.0f));
-	transform.rotation = glm::quat_cast(m_mxView);
+	m_mxView = glm::lookAt(m_transform.position, m_target, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_transform.rotation = glm::quat_cast(m_mxView);
 }

@@ -5,7 +5,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "shader.h"
 #include "material.h"
-
+#include "camera.h"
 
 class Scene04 :
 	public Scene
@@ -69,8 +69,6 @@ private:
 	glm::vec3 m_specularMaterial;
 
 	Material m_material;
-
-
 
 };
 

@@ -35,38 +35,21 @@ bool Material::LoadTexture2D(const std::string & filename, GLuint activeTexture)
 
 	GLenum storageFormat = (n == 4) ? GL_RGBA8 : GL_RGB8;
 	GLenum imageFormat = (n == 4) ? GL_RGBA : GL_RGB;
-	//
 
 	GLuint texture;
+	glActiveTexture(activeTexture);
 	glGenTextures(1, &texture);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image);
+	glBindTexture(GL_TEXTURE_2D, activeTexture);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, storageFormat, width, height, 0, imageFormat, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	////tex2
-	//glActiveTexture(GL_TEXTURE1);
-	//GLuint textureID2;
-	//glGenTextures(1, &textureID2);
 
-	//glBindTexture(GL_TEXTURE_2D, textureID2);
-
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image2);
-	//glGenerateMipmap(GL_TEXTURE_2D);
-	//m_shader.SetUniform("texture2", texID2);
-
-	//glUniform1i(texID, 0);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 	TextureInfo textureInfo = { activeTexture, texture };
 	m_textures.push_back(textureInfo);
 
 	delete image;
-
-
-
 
 	return false;
 }

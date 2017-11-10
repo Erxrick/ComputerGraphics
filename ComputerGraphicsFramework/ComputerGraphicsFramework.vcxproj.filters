@@ -25,6 +25,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{152967c4-fea5-4dd5-b3e4-da34d01a7ded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{c3d0425e-582b-427a-bc78-a3cc9bfac0bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,14 +90,35 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="meshLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="material.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="renderable.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="scene05.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene06.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,14 +170,32 @@
     <ClCompile Include="transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="meshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="material.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="renderable.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="scene05.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene06.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +235,12 @@
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\specular_phong.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\texture_phong_fog.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\basic_color.vert">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>

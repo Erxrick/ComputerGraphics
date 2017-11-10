@@ -89,13 +89,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Zachery\Desktop\Neumont Work\Q5\Graphics\FrameWork\Middleware\glm-master;C:\Users\Zachery\Desktop\Neumont Work\Q5\Graphics\FrameWork\Middleware\stb_image;C:\Users\Zachery\Desktop\Neumont Work\Q5\Graphics\FrameWork\Middleware\glad\include;C:\Users\Zachery\Desktop\Neumont Work\Q5\Graphics\FrameWork\Middleware\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Middleware\helpers;$(SolutionDir)..\Middleware\glm-master;$(SolutionDir)..\Middleware\stb_image;$(SolutionDir)..\Middleware\glad\include;$(SolutionDir)..\Middleware\glfw-3.2.1.bin.WIN32\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\um;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Middleware\glfw-3.2.1.bin.WIN32\lib-vc2015;C:\Users\Zachery\Desktop\Neumont Work\Q5\Graphics\Framework\Middleware\stb_image;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Middleware\glfw-3.2.1.bin.WIN32\lib-vc2015;$(SolutionDir)..\Middleware\stb_image;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.14393.0\um\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -164,9 +164,13 @@
     <ClInclude Include="engine.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="light.h" />
     <ClInclude Include="material.h" />
+    <ClInclude Include="mesh.h" />
     <ClInclude Include="meshLoader.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="renderable.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="scene.h" />
@@ -174,11 +178,14 @@
     <ClInclude Include="scene02.h" />
     <ClInclude Include="scene03.h" />
     <ClInclude Include="scene04.h" />
+    <ClInclude Include="scene05.h" />
+    <ClInclude Include="scene06.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="timer.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
     <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,18 +197,24 @@
     </ClCompile>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="material.cpp" />
+    <ClCompile Include="mesh.cpp" />
     <ClCompile Include="meshLoader.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="renderable.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene01.cpp" />
     <ClCompile Include="scene02.cpp" />
     <ClCompile Include="scene03.cpp" />
     <ClCompile Include="scene04.cpp" />
+    <ClCompile Include="scene05.cpp" />
+    <ClCompile Include="scene06.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -218,6 +231,7 @@
   <ItemGroup>
     <None Include="Resources\Shaders\basic.frag" />
     <None Include="Resources\Shaders\basic.vert" />
+    <None Include="Resources\Shaders\basic_color.vert" />
     <None Include="Resources\Shaders\light.vert" />
     <None Include="Resources\Shaders\multi_phong.frag" />
     <None Include="Resources\Shaders\multi_phong.vert" />
@@ -226,6 +240,7 @@
     <None Include="Resources\Shaders\specular_phong.frag" />
     <None Include="Resources\Shaders\texture_phong.frag" />
     <None Include="Resources\Shaders\texture_phong.vert" />
+    <None Include="Resources\Shaders\texture_phong_fog.frag" />
     <None Include="Resources\Shaders\transform.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -114,7 +114,7 @@ void Scene02::Render()
 
 void Scene02::Update()
 {
-	float dt = m_engine->Get<Timer>()->FrameTime();
+//	float dt = m_engine->Get<Timer>()->FrameTime();
 	m_x = (m_mouseX * 2 / m_engine->Get<Renderer>()->m_width) - 1;
 	m_y = -(m_mouseY * 2 / m_engine->Get<Renderer>()->m_height) + 1;
 

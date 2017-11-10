@@ -33,6 +33,7 @@ Input::~Input()
 
 bool Input::Initialize()
 {
+	glfwSetScrollCallback(m_engine->Get<Renderer>()->m_window, scroll_callback);
 	return true;
 }
 
