@@ -60,9 +60,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="scene01.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -118,6 +115,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scene06.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene07.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene08.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -197,6 +203,12 @@
     <ClCompile Include="scene06.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="scene07.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene08.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ComputerGraphicsFramework.rc">
@@ -241,6 +253,15 @@
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\basic_color.vert">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\phong_directional.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\phong_spotlight.frag">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\multi_light_phong.frag">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>

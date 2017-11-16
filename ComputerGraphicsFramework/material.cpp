@@ -40,7 +40,7 @@ bool Material::LoadTexture2D(const std::string & filename, GLuint activeTexture)
 	glActiveTexture(activeTexture);
 	glGenTextures(1, &texture);
 
-	glBindTexture(GL_TEXTURE_2D, activeTexture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, storageFormat, width, height, 0, imageFormat, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);

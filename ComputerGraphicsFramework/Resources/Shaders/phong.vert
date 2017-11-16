@@ -16,6 +16,6 @@ out vec3 outFragmentNormal;
 void main()
 {
 	outFragmentPosition = vec3(mxModelView * vec4(vertexPosition, 1.0));
-	outFragmentNormal = mxNormal * vertexNormal;
+	outFragmentNormal = normalize(mxNormal * vertexNormal);
 	gl_Position = mxMVP * vec4(vertexPosition, 1.0);
 }

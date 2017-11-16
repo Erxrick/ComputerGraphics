@@ -40,7 +40,7 @@ bool Scene06::Initialize()
 	model->m_material.m_diffuse = glm::vec3(0.75f, 0.75f, 0.75f);
 	model->m_material.m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	model->m_material.m_shininess = 0.4f * 200.0f;
-	model->m_material.LoadTexture2D("Resources\\Textures\\crate.bmp", GL_TEXTURE7);
+	model->m_material.LoadTexture2D("Resources\\Textures\\crate.bmp", GL_TEXTURE0);
 
 
 //	sets the shader uniforms for the model, since these won’t change during the scene we can do them in the Initialize
