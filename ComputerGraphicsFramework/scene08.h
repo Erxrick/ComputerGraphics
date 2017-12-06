@@ -13,7 +13,8 @@ public:
 	void Render();
 	void Shutdown();
 
+	int lights = 1;
 	bool m_pointLightMode = true;
-	float m_rotation = 0.0;
+	float m_rotation[5];
 };
 

@@ -4,8 +4,9 @@ in vec3 outFragmentPosition;
 in vec3 outFragmentNormal;
 in vec2 outFragmentUV;
 
-//layout (binding=0) uniform sampler2D texture1;
-//layout (binding=1) uniform sampler2D texture2;
+layout (binding=0) uniform sampler2D diffuseMap;
+layout (binding=1) uniform sampler2D normalMap;
+
 
 out vec4 outFragmentColor;
 
@@ -51,8 +52,18 @@ void main()
 	vec3 color = material.ambient;
 	vec3 diffuse;
 	vec3 specular;
-	phong(outFragmentPosition, outFragmentNormal, diffuse, specular);
-	color += (diffuse + specular);
+	vec3 normal = texture(normalMap, outFragmentUV).rgb;
+	normal = normalize(normal * 2.0 - 1.0);
+	phong(outFragmentPosition, normal, diffuse, specular);
+	chrom
 
-    outFragmentColor = vec4(color, 1.0);
+	vec4 textureColor = texture(diffuseMap, outFragmentUV);
+	outFragmentColor = textureColor * vec4(diffuse, 1.0) + vec4(specular, 1.0);
+
+
+
+
 }
+
+
+

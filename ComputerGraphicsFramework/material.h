@@ -16,6 +16,7 @@ public:
 
 	struct TextureInfo
 	{
+		GLenum type;
 		GLuint activeTexture;
 		GLuint texture;
 	};
@@ -25,7 +26,13 @@ public:
 
 	void SetMaterial(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess);
 	bool LoadTexture2D(const std::string& filename, GLuint activeTexture);
+	bool LoadTextureCube(const std::string& basename, const std::vector<std::string>& suffixes, const std::string& type, GLuint activeTexture);
 	void SetTextures();
+
+
+	static GLuint CreateTexture(GLuint width, GLuint height);
+
+	void AddTexture(GLuint texture, GLuint activeTexture);
 
 };
 

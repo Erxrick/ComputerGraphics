@@ -10,10 +10,11 @@ Model::~Model()
 void Model::Update()
 {
 //	Set the model shader as current
-		m_shader.Use();
+	m_shader.Use();
 
 //	Get the camera object from the scene
-		Camera* camera = m_scene->GetObject<Camera>("camera");
+	std::string cameraID = (m_cameraID.empty()) ? "camera" : m_cameraID;
+	Camera* camera = m_scene->GetObject<Camera>(cameraID);
 
 //	Update the matrices and shader uniforms
 	glm::mat4 mxView = camera->GetView();

@@ -17,6 +17,9 @@
 #include "scene06.h"
 #include "scene07.h"
 #include "scene08.h"
+#include "scene09.h"
+#include "scene10.h"
+#include "scene11.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
@@ -33,7 +36,7 @@ int main()
 		engine->Shutdown();
 		exit(EXIT_FAILURE);
 	}
-	std::shared_ptr<Scene> scene(new Scene08(engine.get()));
+	std::shared_ptr<Scene> scene(new Scene11(engine.get()));
 	if (!scene->Initialize())
 	{
 		scene->Shutdown();

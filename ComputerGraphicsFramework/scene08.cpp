@@ -27,23 +27,21 @@ bool Scene08::Initialize()
 {
 	m_engine->Get<Input>()->AddButton("quit", Input::eButtonType::KEYBOARD, GLFW_KEY_ESCAPE);
 	m_engine->Get<Input>()->AddButton("mode", Input::eButtonType::KEYBOARD, GLFW_KEY_SPACE);
+	m_engine->Get<Input>()->AddButton("increment", Input::eButtonType::KEYBOARD, GLFW_KEY_UP);
 
 	// light
 	Light* light;
 	for (int i = 0; i < NUM_LIGHTS; i++)
 	{
-		light = new Light(("light" + i), this);
+		std::string name = ("light" + i);
+		light = new Light(name, this);
 		light->m_transform.position = glm::sphericalRand(4.0f);
 		light->m_diffuse = glm::rgbColor(glm::vec3(glm::linearRand(0.0f, 360.0f), 1.0f, 1.0f));
 		light->m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
 		AddObject(light);
 	}
 	auto lights = GetObjects<Light>();
-	//Light* light = new Light("light", this);
-	//light->m_transform.position = glm::vec3(0.0f, 2.0f, 1.5f);
-	//light->m_diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	//light->m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	//AddObject(light);
+
 
 
 	// model  cube
@@ -65,7 +63,7 @@ bool Scene08::Initialize()
 
 	//	sets the material for the model
 	model->m_material.m_ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	model->m_material.m_diffuse = glm::vec3(0.0f, 0.0f, 0.9f);
+	model->m_material.m_diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
 	model->m_material.m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	model->m_material.m_shininess = 12.0f;
 	//model->m_material.LoadTexture2D("Resources\\Textures\\crate.bmp", GL_TEXTURE0);
@@ -136,7 +134,7 @@ bool Scene08::Initialize()
 
 	//	sets the material for the model
 	model->m_material.m_ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	model->m_material.m_diffuse = glm::vec3(0.0f, 0.75f, 0.75f);
+	model->m_material.m_diffuse = glm::vec3(0.2f, 0.2f, 0.2f);
 	model->m_material.m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	model->m_material.m_shininess = 12.0f;
 	//	model->m_material.LoadTexture2D("Resources\\Textures\\crate.bmp", GL_TEXTURE0);
@@ -205,6 +203,7 @@ bool Scene08::Initialize()
 
 void Scene08::Update()
 {
+	if (m_engine->Get<Input>()->GetButton("increment") == Input::eButtonState::DOWN && lights < 5) lights++;
 	if (m_engine->Get<Input>()->GetButton("quit") == Input::eButtonState::DOWN) glfwSetWindowShouldClose(m_engine->Get<Renderer>()->m_window, GLFW_TRUE);
 	if (m_engine->Get<Input>()->GetButton("mode") == Input::eButtonState::DOWN)
 	{
@@ -224,6 +223,10 @@ void Scene08::Update()
 	for (int i = 0; i < lights.size(); i++)
 	{
 		glm::vec4 position = camera->GetView() * glm::vec4(lights[i]->m_transform.position, w);
+
+		m_rotation[i] = 1.0f * dt;
+		glm::quat rotation = glm::angleAxis(m_rotation[i], glm::vec3(0.0f, 1.0f, 0.0f));
+		lights[i]->m_transform.position = rotation * lights[i]->m_transform.position;
 
 		auto models = GetObjects<Model>();
 		for (auto model : models)

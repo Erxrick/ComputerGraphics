@@ -33,31 +33,17 @@ uniform Light lights[5];
 void phong(int lightIndex, vec3 position, vec3 normal, out vec3 diffuse, out vec3 specular) 
 {
 	vec3 directionToLight = normalize(vec3(lights[lightIndex].position) - position);
-	vec3 spotDirection = normalize(lights[lightIndex].direction);
+	float diffuseIntensity = max(dot(directionToLight, normal), 0.0f);
+	diffuse = (lights[lightIndex].diffuse * material.diffuse * diffuseIntensity);
 
-	float angle = acos(dot(-directionToLight, spotDirection));
-
-	if(angle > lights[lightIndex].cutoff)
+	if(diffuseIntensity > 0.0f)
 	{
-		specular = vec3(0.0f, 0.0f, 0.0f);
-	} 
-	else
-	{
-		float diffuseIntensity = max(dot(directionToLight, normal), 0.0f);
-		float spotFactor = pow(dot(-directionToLight, spotDirection), lights[lightIndex].exponent);
-		vec3 diffuse = (lights[lightIndex].diffuse * material.diffuse * diffuseIntensity) * spotFactor;
-
-
-		if(diffuseIntensity > 0.0f)
-		{
-			vec3 positionToView = normalize(-position.xyz); 
-			vec3 reflectLightVector = reflect(-directionToLight, normal);
-			float specularIntensity = max(dot(reflectLightVector, positionToView), 0.0f);
-			specularIntensity = pow(specularIntensity, material.shininess);
-			specular = (lights[lightIndex].specular * material.specular * specularIntensity) * spotFactor;
-		}
+		vec3 positionToView = normalize(-position.xyz); 
+		vec3 reflectLightVector = reflect(-directionToLight, normal);
+		float specularIntensity = max(dot(reflectLightVector, positionToView), 0.0f);
+		specularIntensity = pow(specularIntensity, material.shininess);
+		specular = (lights[lightIndex].specular * material.specular * specularIntensity);
 	}
-
 }
 
 void main()
