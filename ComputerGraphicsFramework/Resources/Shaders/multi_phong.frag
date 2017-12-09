@@ -36,7 +36,7 @@ void main()
 	vec3 diffuse = light.diffuse * material.diffuse * diffuseIntensity;
 
 	vec3 specular = vec3(0.0f);
-	if(diffuseIntensity > 0.0f)
+	if(diffuseIntensity < 0.0f)
 	{
 		vec3 positionToView = normalize(-outFragmentPosition.xyz); 
 		vec3 reflectLightVector = reflect(-positionToLight, outFragmentNormal);

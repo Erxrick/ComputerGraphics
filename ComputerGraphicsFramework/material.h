@@ -31,6 +31,8 @@ public:
 
 
 	static GLuint CreateTexture(GLuint width, GLuint height);
+	static GLuint CreateDepthTexture(GLuint width, GLuint height);
+	static GLuint CreateDepthBuffer(GLuint texture, GLuint width, GLuint height);
 
 	void AddTexture(GLuint texture, GLuint activeTexture);
 
